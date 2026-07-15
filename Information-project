@@ -1,0 +1,660 @@
+Yes. In fact, **I recommend multiple prompts**. One giant prompt usually produces a lower-quality result because the AI tries to cover everything at once. Breaking it into phases is closer to how a real software architect works.
+
+Given your goal, I would create a **Project Master Guide** consisting of multiple prompts. Together, they'll become the complete blueprint for the project.
+
+---
+
+# 📘 Project Master Guide
+
+## Project Title
+
+**Enterprise AI Knowledge Hub**
+
+---
+
+## Objective
+
+This is **not** a CRUD project.
+
+This is **not** a tutorial project.
+
+This is a **real enterprise-grade application** built for learning and interview preparation.
+
+By the end of the project, I should understand and be able to explain:
+
+* Core Java
+* Advanced Java
+* OOP
+* SOLID Principles
+* Design Patterns
+* Spring Framework
+* Spring Boot
+* Spring Security
+* JWT
+* Hibernate
+* JPA
+* PostgreSQL
+* Redis
+* Kafka
+* Docker
+* Docker Compose
+* Microservices
+* RAG
+* LangChain4j
+* Gemini/OpenAI
+* Angular
+* REST API Design
+* System Design
+* High-Level Design (HLD)
+* Low-Level Design (LLD)
+* Production Architecture
+* Clean Architecture
+* Testing
+* Git workflow
+* Deployment
+
+The objective is to understand **why every technology exists**, **how it works internally**, and **why it is used in this project**.
+
+---
+
+# 📂 Prompt 1 — Project Vision & Scope
+
+Ask Antigravity to define:
+
+* Business problem
+* Stakeholders
+* User personas
+* Functional requirements
+* Non-functional requirements
+* Success criteria
+* Scope
+* Future scope
+* Assumptions
+* Constraints
+* Risks
+
+Deliverables:
+
+* SRS (Software Requirements Specification)
+* User stories
+* Acceptance criteria
+
+---
+
+# 🏗️ Prompt 2 — Complete Architecture
+
+Ask for:
+
+* High-Level Design (HLD)
+* Low-Level Design (LLD)
+* Context Diagram
+* Component Diagram
+* Deployment Diagram
+* Data Flow Diagram
+* Sequence Diagrams
+* Class Diagrams
+* Package Diagrams
+* Communication Diagram
+
+Every architectural decision must include:
+
+* Why this approach?
+* Alternatives
+* Pros
+* Cons
+
+---
+
+# 💾 Prompt 3 — Database Design
+
+Ask for:
+
+* ER Diagram
+* Complete schema
+* Relationships
+* Constraints
+* Indexes
+* Foreign Keys
+* Transactions
+* Locking
+* Normalization
+* Why PostgreSQL?
+* Why pgvector?
+* Why not MySQL?
+* Why not MongoDB?
+
+---
+
+# 🌱 Prompt 4 — Core Java & OOP Mapping
+
+This is one of the most important prompts.
+
+Tell Antigravity:
+
+> Every Core Java and OOP concept must appear naturally in the project.
+
+It should map:
+
+* Classes
+* Objects
+* Constructors
+* Encapsulation
+* Abstraction
+* Inheritance
+* Polymorphism
+* Interfaces
+* Abstract Classes
+* Composition
+* Aggregation
+* Association
+* Method Overloading
+* Method Overriding
+* Exception Handling
+* Collections
+* Streams
+* Generics
+* Lambdas
+* Functional Interfaces
+* Records (if appropriate)
+
+For each concept:
+
+* Where it appears
+* Why it's needed
+* Internal working
+* Interview questions
+
+---
+
+# 🌼 Prompt 5 — Spring Boot Mapping
+
+Map every important Spring concept to this project:
+
+* IoC
+* Dependency Injection
+* Bean Lifecycle
+* Component Scanning
+* Configuration
+* Profiles
+* AOP
+* Validation
+* Transactions
+* Events
+* Scheduling
+* Caching
+* Spring MVC
+* REST
+* Exception Handling
+
+For every annotation:
+
+* Purpose
+* Internal processing
+* Lifecycle
+* Best practices
+* Common mistakes
+
+---
+
+# 🔐 Prompt 6 — Security Design
+
+Include:
+
+* Spring Security flow
+* JWT flow
+* Refresh Token
+* Filter Chain
+* UserDetailsService
+* PasswordEncoder
+* Roles
+* Permissions
+* Secure file upload
+* CORS
+* CSRF
+* XSS
+* SQL Injection prevention
+
+Explain each step internally.
+
+---
+
+# 🤖 Prompt 7 — AI & RAG
+
+This should be extremely detailed.
+
+Include:
+
+* LLM fundamentals
+* Embeddings
+* Chunking strategies
+* Retriever
+* Ranking
+* Prompt engineering
+* Context window
+* Temperature
+* Streaming
+* Hallucination prevention
+* Source citations
+* Conversation memory
+
+Explain the entire pipeline end-to-end.
+
+---
+
+# ⚙️ Prompt 8 — Microservices & Kafka
+
+Design the migration from:
+
+Monolith → Microservices
+
+Explain:
+
+* Why start as a monolith
+* When to split
+* Service boundaries
+* API Gateway
+* Eureka
+* Config Server
+* OpenFeign
+
+For Kafka:
+
+* Topics
+* Producers
+* Consumers
+* Partitions
+* Consumer Groups
+* Offsets
+* Retries
+* DLQ
+* Idempotency
+
+Also ask:
+
+> Evaluate whether Saga Pattern is actually required. If yes, design a realistic use case. If no, explain why.
+
+---
+
+# 🎨 Prompt 9 — Angular Frontend
+
+Design:
+
+* Module structure
+* Routing
+* State management
+* Authentication flow
+* Guards
+* Services
+* Components
+* Shared module
+* Admin dashboard
+* Chat interface
+* Upload screen
+* Analytics
+
+---
+
+# 🧪 Prompt 10 — Testing & DevOps
+
+Include:
+
+* Unit testing
+* Integration testing
+* MockMvc
+* Mockito
+* Testcontainers (optional)
+* Docker
+* Docker Compose
+* Profiles
+* Logging
+* Health checks
+* API documentation
+* Environment management
+
+---
+
+# 📅 Prompt 11 — 15-Day Sprint Plan
+
+Design a sprint plan where each day contains:
+
+* Learning objectives
+* Business features
+* Technical concepts
+* Implementation tasks
+* Git commits
+* Testing
+* Documentation
+* Interview questions
+* Refactoring
+
+Every day should build on the previous day.
+
+---
+
+# 🎤 Prompt 12 — Interview Preparation
+
+Generate:
+
+* Common interview questions
+* Follow-up questions
+* Architecture discussions
+* System design questions
+* HR-style project explanation
+
+Teach how to answer:
+
+* Why did you use Kafka?
+* Why microservices?
+* Why RAG?
+* Why pgvector?
+* Why Docker?
+* Why Spring Boot?
+* Why layered architecture?
+* Why DTOs?
+* Why not expose entities?
+
+---
+
+## 📌 One important change I'd make
+
+There's one thing I would add that many AI-generated project plans miss:
+
+> **The project should be "concept-driven", not "feature-driven".**
+
+That means we don't add Redis because "Redis is popular." We add Redis because, for example, **chat history or frequently accessed document metadata benefits from caching**. We don't add Kafka because "companies use Kafka." We add Kafka because **document processing is a long-running asynchronous workflow**.
+
+Every technology should answer three questions:
+
+1. **What business problem does it solve in this project?**
+2. **Why is it better than the alternatives here?**
+3. **What would happen if we removed it?**
+
+If every design decision passes those three questions, you'll end up with a project that is realistic, interview-ready, and much easier to explain confidently.
+📌 Prompt 13 — Enterprise Coding Standards
+
+The project must follow enterprise coding standards.
+
+Define:
+
+Package naming conventions
+Class naming conventions
+Method naming conventions
+Variable naming conventions
+API naming conventions
+DTO naming conventions
+Exception naming conventions
+Constant naming conventions
+Enum naming conventions
+
+Also explain:
+
+Clean Code principles
+Code smells
+Refactoring techniques
+DRY
+KISS
+YAGNI
+Composition over inheritance
+Fail Fast principle
+
+Every coding decision must follow Java and Spring Boot best practices.
+
+📌 Prompt 14 — API Design Standards
+
+Design REST APIs like a real enterprise application.
+
+Include:
+
+REST conventions
+HTTP methods
+Status codes
+Request validation
+Response DTOs
+Error responses
+Global Exception Handler
+Pagination
+Sorting
+Filtering
+Searching
+Versioning
+Idempotency
+Rate limiting
+API documentation
+
+Generate an API contract for every endpoint.
+
+📌 Prompt 15 — Logging & Monitoring
+
+Design enterprise logging.
+
+Explain:
+
+Log levels
+Structured logging
+Correlation IDs
+Trace IDs
+Request logging
+Exception logging
+Audit logging
+
+Explain what should never be logged.
+
+Design monitoring strategy.
+
+Include:
+
+Spring Boot Actuator
+Micrometer
+Prometheus
+Grafana
+
+Explain production monitoring.
+
+📌 Prompt 16 — Performance Optimization
+
+For every module explain:
+
+Performance bottlenecks
+Database optimization
+Query optimization
+Lazy vs Eager
+Batch processing
+Caching strategy
+Redis usage
+Connection Pool
+Thread Pool
+Async processing
+JVM considerations
+
+Explain why every optimization exists.
+
+📌 Prompt 17 — Production Readiness
+
+Transform the project from local development to production.
+
+Include:
+
+Environment separation
+Secrets management
+Configuration management
+Docker best practices
+Health checks
+Graceful shutdown
+Backup strategy
+Disaster recovery
+Deployment strategy
+Scaling strategy
+High Availability
+Zero Downtime Deployment
+📌 Prompt 18 — Git & Team Collaboration
+
+Teach professional Git workflow.
+
+Include:
+
+Git Flow
+Branch strategy
+Feature branches
+Pull Requests
+Code Reviews
+Merge strategy
+Semantic Commit Messages
+Release management
+Versioning
+
+Generate commit history for the entire project.
+
+📌 Prompt 19 — Documentation Standards
+
+Generate documentation for:
+
+README
+API Documentation
+Architecture Guide
+Deployment Guide
+Setup Guide
+Developer Guide
+User Guide
+Troubleshooting Guide
+
+Explain how enterprise teams maintain documentation.
+
+📌 Prompt 20 — Project Evolution Roadmap
+
+The project should evolve exactly like a real product.
+
+Phase 1
+Simple CRUD Monolith
+
+↓
+
+Phase 2
+Authentication
+
+↓
+
+Phase 3
+Production-ready Monolith
+
+↓
+
+Phase 4
+AI Integration
+
+↓
+
+Phase 5
+RAG
+
+↓
+
+Phase 6
+Redis
+
+↓
+
+Phase 7
+Kafka
+
+↓
+
+Phase 8
+Microservices
+
+↓
+
+Phase 9
+Production Deployment
+
+Explain why each technology is introduced only at that stage.
+
+📌 Prompt 21 — Architecture Decision Records (ADR)
+
+For every major architectural decision create an ADR.
+
+Example:
+
+ADR-001
+
+Why PostgreSQL?
+
+ADR-002
+
+Why Spring Boot?
+
+ADR-003
+
+Why Layered Architecture?
+
+ADR-004
+
+Why RAG?
+
+ADR-005
+
+Why pgvector?
+
+ADR-006
+
+Why Kafka?
+
+ADR-007
+
+Why Redis?
+
+ADR-008
+
+Why Microservices?
+
+Each ADR should contain:
+
+Context
+Decision
+Alternatives considered
+Pros
+Cons
+Consequences
+📌 Prompt 22 — Senior Engineer Review
+
+At the end of every phase, perform a Senior Software Engineer review.
+
+Review:
+
+Code quality
+Architecture quality
+Security issues
+Performance issues
+Design mistakes
+SOLID violations
+Design Pattern misuse
+Spring Boot anti-patterns
+Refactoring opportunities
+
+Suggest improvements before moving to the next phase.
+
+📌 Prompt 23 — Knowledge Check
+
+After every completed module generate:
+
+MCQs
+Coding exercises
+Debugging questions
+Scenario-based questions
+Interview questions
+System Design questions
+
+Do not continue to the next module until the previous one is understood.
+
+📌 Prompt 24 — Real Company Perspective
+
+While designing every feature, think like a Senior Backend Engineer working at Microsoft, Google, Amazon, Netflix, Uber, or Stripe.
+
+For every architectural decision answer:
+
+Why would a real company choose this?
+What alternatives would be considered?
+What trade-offs exist?
+At what scale would this design stop working?
+How would it evolve as the company grows from 100 users to 10 million users?
+
+Never introduce technologies just because they are popular. Every component must solve a real business or technical problem in this project.
