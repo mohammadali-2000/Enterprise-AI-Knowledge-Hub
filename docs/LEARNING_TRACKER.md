@@ -12,4 +12,4 @@
 - [x] **Inversion of Control (IoC):** I know that Spring manages object creation so I don't have to use the `new` keyword everywhere.
 - [x] **Dependency Injection (DI):** I know that if one class needs another, Spring "injects" it automatically (usually via the constructor).
 - [ ] *Pending: What is a Bean?*
-- [ ] *Pending: Controller -> Service -> Repository Architecture.*
+- [x] **3-Tier Architecture:** I know the difference between a Controller (waiter), a Service (chef), and a Repository (pantry), and why they are separated.
