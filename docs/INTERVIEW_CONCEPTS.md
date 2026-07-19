@@ -159,3 +159,27 @@ Besides the 3 main tiers, you will see a few other folders. Here is what they do
 #### 4. Exception (`/exception`)
 **Analogy:** The Complaint Desk.
 **Job:** If something goes wrong (e.g., a user asks for a document that doesn't exist), our code "throws an exception". We put special classes in this folder that catch those errors and send a nice, readable error message back to the user instead of crashing the server.
+
+---
+
+## 5. Q&A Review (Everything You Should Know: Phases 1 to 5)
+
+If you are asked these questions in an interview *today*, you should be able to answer them confidently based on what we have built so far.
+
+**Q1 (Phase 1): Why did you choose a Modular Monolith architecture instead of Microservices for this project?**
+**Answer:** "Because starting with Microservices introduces massive infrastructure overhead and complexity. By building a Modular Monolith, we keep everything in a single application (easy to run and debug), but we enforce strict boundaries between domains (like User and Document). If the app scales massively later, we can easily split those boundaries into Microservices without having to rewrite the code."
+
+**Q2 (Phase 2): What is Inversion of Control (IoC) and why is it useful?**
+**Answer:** "IoC means giving control of object creation to the Spring Framework. Instead of tightly coupling our code by using the `new` keyword everywhere, Spring manages the objects (Beans) in its memory. This makes our code loosely coupled, easier to test, and highly maintainable."
+
+**Q3 (Phase 2): How does Dependency Injection (DI) work in your application?**
+**Answer:** "When a class needs a dependency—for example, our `UserService` needs the `UserRepository` to talk to the database—we don't instantiate the repository manually. We use `@Autowired` in the constructor, and Spring automatically 'injects' the repository Bean into our service when the application starts."
+
+**Q4 (Phase 4): Can you explain the 3-Tier Architecture you are using?**
+**Answer:** "We use a Controller-Service-Repository pattern. 
+1. The **Controller** handles incoming HTTP requests and returns responses (like a Waiter). It contains no business logic.
+2. The **Service** contains all the complex business rules and validations (like a Chef).
+3. The **Repository** is strictly responsible for database operations using Spring Data JPA (like a Pantry worker)."
+
+**Q5 (Phase 5): What is the difference between an Entity and a Repository?**
+**Answer:** "An Entity is a plain Java class annotated with `@Entity` that maps exactly to a table in the database (e.g., the `User` class maps to the `USERS` table). A Repository is an interface extending `JpaRepository` that gives us out-of-the-box methods to query, save, and delete those Entities without writing raw SQL."
