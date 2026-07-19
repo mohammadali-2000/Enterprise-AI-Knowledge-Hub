@@ -14,3 +14,4 @@
 - [ ] *Pending: What is a Bean?*
 - [x] **3-Tier Architecture:** I know the difference between a Controller (waiter), a Service (chef), and a Repository (pantry), and why they are separated.
 - [x] **DTOs (Data Transfer Objects):** I know we never expose our raw Entities to the internet for security reasons; instead, we use DTOs to filter safe data in and out.
+- [x] **Global Exception Handling:** I know how to use `@ControllerAdvice` to catch errors globally and return clean JSON instead of crashing the server.
