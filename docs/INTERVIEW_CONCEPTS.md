@@ -90,3 +90,22 @@ public class Car {
 
 **Why is this beautiful?**
 Notice there is **no `new` keyword**. The `Car` does not care if the engine is a V8 Engine or an Electric Engine. It just says, *"Hey Spring, give me whatever engine you have in your memory."* This is called "Loosely Coupled" code, and it is the foundation of every Enterprise Java application in the world.
+
+---
+
+## 3. Spring Boot Annotations (Cheat Sheet)
+
+When you look at Spring Boot code (like `User.java`), you will see words starting with `@`. These are called **Annotations**. In Core Java, you have to write hundreds of lines of code to do simple things. In Spring Boot, you just type an `@Annotation` and Spring writes the code for you in the background!
+
+Here are the annotations we just used in `User.java`:
+
+### Database Annotations (JPA/Hibernate)
+* `@Entity`: Tells Spring, *"This Java class represents a Table in the PostgreSQL database."*
+* `@Table(name = "users")`: Explicitly tells Spring exactly what the database table is named.
+* `@Id`: Tells Spring, *"This specific variable (id) is the Primary Key."*
+* `@GeneratedValue(strategy = GenerationType.UUID)`: Tells Spring, *"When I create a new User, DO NOT ask me for an ID. Generate a random, unique UUID string for me automatically."*
+
+### Lombok Annotations (The Time Savers)
+Lombok is a special plugin that saves you from writing boring code.
+* `@Data`: If you write this, you **never have to write Getters and Setters again**. Lombok secretly writes `getEmail()` and `setEmail()` for every single variable in the background.
+* `@NoArgsConstructor`: Secretly creates an empty constructor `public User() {}` which Spring Boot requires to work properly.
