@@ -293,3 +293,28 @@ Here is exactly how our code uses the 4 pillars of OOP.
 * **Concept:** The ability of a single interface or method to take on multiple forms depending on the object.
 * **Where we used it:** 
   - In `CustomUserDetailsService.java`, our method returns a `UserDetails` object. `UserDetails` is just an interface. We are returning Spring Security's specific implementation of it, but Spring Security doesn't care. It just knows it can call `.getUsername()` and `.getPassword()` on whatever object we return.
+
+---
+
+## 10. Spring Bean Scopes (The "Singleton" Interview Question)
+
+As your mentor, here is a question you didn't ask, but an interviewer will **100% ask you**: 
+*"When you use `@Service` or `@Component`, how many copies of that object does Spring create? What happens if 1,000 users hit your Controller at the exact same time?"*
+
+### The Answer: Singleton (The Default)
+By default, every single Bean in Spring Boot (`@RestController`, `@Service`, `@Repository`) is a **Singleton**.
+This means Spring creates exactly **ONE** copy of your `UserService` in its memory, and it shares that single copy with all 1,000 users simultaneously. 
+
+**Why? (Performance)**
+Creating objects in Java (using `new`) takes up memory and slows down the application. If 1,000 users log in, we don't need 1,000 different Managers doing the math. One Manager can handle all 1,000 requests as long as the Manager doesn't get confused.
+
+**The Golden Rule of Singletons (Thread-Safety):**
+Because 1,000 users are using the exact same `UserService` at the exact same millisecond, you must **NEVER** save a user's specific data as a class-level variable in a Service. 
+* **Bad:** `private String currentUsersEmail;` inside the Service. User A will overwrite User B's email!
+* **Good:** Only keep things like the `UserRepository` (which is also a Singleton) as class variables. Keep user data strictly inside the method parameters.
+
+### The Alternative: Prototype
+If you ever actually *need* a brand new copy of an object for every single request, you can change the scope to Prototype by adding: `@Scope("prototype")`.
+
+**Technical Interview Answer:**
+> "By default, all Spring Beans are Singletons, meaning the IoC container creates exactly one instance per application context. This is highly performant and memory-efficient. However, because the instance is shared across multiple concurrent threads, it must be stateless (thread-safe). If we need stateful beans where a new instance is created every time it is requested, we change the scope to Prototype."
