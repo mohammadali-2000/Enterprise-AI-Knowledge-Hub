@@ -261,3 +261,35 @@ Think of our Application as an exclusive VIP Nightclub.
 
 **Technical Interview Answer:**
 > "JWT (JSON Web Token) is a stateless, self-contained token used to securely transmit information between parties. In our Spring Boot architecture, we use JWTs for authentication. When a user logs in, we generate a cryptographically signed JWT. Because it is stateless, the server does not need to store session data in memory. For subsequent requests, Spring Security's Filter Chain intercepts the HTTP request, extracts the JWT from the Authorization header, mathematically validates the signature using our secret key, and if valid, populates the `SecurityContext` to authorize the user."
+
+---
+
+## 9. Object-Oriented Programming (OOP) in our Project
+
+An interviewer will absolutely ask you: *"Tell me where you actually used OOP concepts in your Spring Boot project."* 
+Here is exactly how our code uses the 4 pillars of OOP.
+
+### 1. Encapsulation (Hiding Data)
+* **Concept:** Bundling data and methods together, and hiding the internal state from the outside world.
+* **Where we used it:** 
+  - Look at `User.java`. All of our database columns (`email`, `passwordHash`) are marked as `private`. No outside class can change them directly. They must use the public getter/setter methods (which Lombok `@Data` generates for us).
+  - We also encapsulate our database by using **DTOs** (Data Transfer Objects). The outside internet is completely blocked from seeing our true `User` Entity. We only expose safe data via `UserProfileDTO`.
+
+### 2. Abstraction (Hiding Complexity)
+* **Concept:** Showing only the essential features of an object and hiding the complex implementation details.
+* **Where we used it:** 
+  - The entire **3-Tier Architecture** is built on abstraction! 
+  - The `UserController` calls `userService.registerUser(...)`. The Controller has absolutely zero idea *how* the user is saved, or *how* the password is encrypted. All that complexity is hidden away (abstracted) inside the Service.
+  - Furthermore, the `UserService` calls `userRepository.save()`. The Service has no idea how to write PostgreSQL code. The complex SQL is entirely abstracted away by Spring Data JPA.
+
+### 3. Inheritance (Code Reusability)
+* **Concept:** A child class inheriting properties and behaviors from a parent class.
+* **Where we used it:** 
+  - Look at `UserRepository.java`. It is defined as: `public interface UserRepository extends JpaRepository<User, UUID>`. 
+  - By using the `extends` keyword, our empty interface immediately inherits dozens of powerful database methods (like `findById`, `save`, `delete`) from Spring Boot's parent class without us having to write a single line of SQL.
+  - Look at `JwtAuthenticationFilter.java`. It `extends OncePerRequestFilter`. We inherit all the complex HTTP filtering logic from Spring Security and just override one method to add our custom JWT logic.
+
+### 4. Polymorphism (Many Forms)
+* **Concept:** The ability of a single interface or method to take on multiple forms depending on the object.
+* **Where we used it:** 
+  - In `CustomUserDetailsService.java`, our method returns a `UserDetails` object. `UserDetails` is just an interface. We are returning Spring Security's specific implementation of it, but Spring Security doesn't care. It just knows it can call `.getUsername()` and `.getPassword()` on whatever object we return.
