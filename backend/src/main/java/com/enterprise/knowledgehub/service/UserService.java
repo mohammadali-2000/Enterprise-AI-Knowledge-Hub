@@ -3,6 +3,7 @@ package com.enterprise.knowledgehub.service;
 import com.enterprise.knowledgehub.entity.User;
 import com.enterprise.knowledgehub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,11 +13,13 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    // Dependency Injection! Spring automatically gives us the UserRepository here.
+    // Dependency Injection! Spring automatically gives us the UserRepository and PasswordEncoder here.
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -40,8 +43,11 @@ public class UserService {
         // 3. Create the new User Entity
         User newUser = new User();
         newUser.setEmail(email);
-        // Note: In a real app, we MUST hash this password before saving! We will do that later.
-        newUser.setPasswordHash(rawPassword); 
+        
+        // Hash the password securely using BCrypt before saving!
+        String hashedPassword = passwordEncoder.encode(rawPassword);
+        newUser.setPasswordHash(hashedPassword); 
+        
         newUser.setRole("USER");
 
         // 4. Save to the database using the Repository
