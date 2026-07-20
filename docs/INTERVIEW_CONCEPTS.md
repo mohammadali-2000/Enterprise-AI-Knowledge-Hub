@@ -183,3 +183,38 @@ If you are asked these questions in an interview *today*, you should be able to 
 
 **Q5 (Phase 5): What is the difference between an Entity and a Repository?**
 **Answer:** "An Entity is a plain Java class annotated with `@Entity` that maps exactly to a table in the database (e.g., the `User` class maps to the `USERS` table). A Repository is an interface extending `JpaRepository` that gives us out-of-the-box methods to query, save, and delete those Entities without writing raw SQL."
+
+---
+
+## 6. Database Transactions (`@Transactional`)
+
+Imagine you go to a bank to transfer $100 to a friend. The database must:
+1. Subtract $100 from your account.
+2. Add $100 to your friend's account.
+
+If the server crashes exactly between step 1 and step 2, your money is gone, but your friend never got it. This is a catastrophic failure.
+
+To prevent this, databases use **Transactions**. A transaction guarantees **ACID properties**, specifically **Atomicity** (All or Nothing). Either every single step succeeds, or if even a single step fails, the database automatically **Rolls Back** (undoes) everything so the data is never left in a corrupted state.
+
+In Spring Boot, we implement this simply by adding the `@Transactional` annotation to our Service (Chef) methods. 
+
+---
+
+## 7. Swagger UI & OpenAPI
+
+When building a Backend API, you write code that receives requests and sends responses. But how do the Frontend Developers (or the people writing Mobile Apps) know *how* to talk to your Backend? How do they know what URLs exist, what JSON to send, and what responses to expect?
+
+You have to write **API Documentation**.
+
+In the old days, developers had to manually write giant Word documents explaining their APIs. When the code changed, the Word documents got outdated, causing massive confusion.
+
+### What is OpenAPI?
+OpenAPI is a universal standard (a set of rules) for describing REST APIs. It is essentially a giant JSON file that formally describes every single endpoint, parameter, and response your application has.
+
+### What is Swagger UI?
+Swagger UI is a tool that reads that OpenAPI JSON file and automatically generates a beautiful, interactive web page (the one you just clicked on). 
+
+**Why is it important in an enterprise?**
+1. **Auto-Generated:** You never have to manually write documentation. Spring Boot (using the `springdoc-openapi` library) looks at your `@RestController` classes and automatically generates the Swagger page on the fly.
+2. **Interactive Testing:** As you saw, you don't need to write complex Terminal/Curl commands or use tools like Postman just to test if your code works. You can test it directly from the browser by clicking "Try it out".
+3. **Contract with Frontend:** It acts as an unbreakable "Contract". The Frontend team can look at Swagger and immediately know exactly how to build their screens without ever having to ask the Backend team questions.
