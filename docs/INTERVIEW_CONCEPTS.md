@@ -109,22 +109,22 @@ Here are the annotations we just used in `User.java`:
 
 * `@RestController`
   * **Simple Meaning:** This makes a class the "Front Desk Teller" of your application.
-  * **Detail:** It tells Spring Boot that this class will talk directly to the internet. When a user visits a URL (like `/api/users/login`), this class takes their request and returns data back to them. It does not do any complex math or heavy thinking.
+  * **Technical Definition:** A specialized version of `@Controller` that adds the `@ResponseBody` annotation automatically. It marks the class as a web controller capable of handling REST HTTP requests (GET, POST) and automatically serializing returned objects into JSON.
   * **Diagram:** `Internet Request  -->  [@RestController (Teller)]  -->  Passes work to the Service`
 
 * `@Service`
   * **Simple Meaning:** This makes a class the "Manager" or "Chef". 
-  * **Detail:** This is where the actual brain of your application lives. It contains all the "Business Logic". For example, if you need to check passwords, validate emails, or calculate taxes, you write that code here. The Service does the hard work.
+  * **Technical Definition:** A specialized `@Component` used to define the service layer of the application. It encapsulates business logic, coordinates transactions, and acts as a bridge between the Controller and the Repository.
   * **Diagram:** `[@RestController (Teller)]  -->  [@Service (Manager does the math)]  -->  Saves to Database`
 
 * `@Component`
   * **Simple Meaning:** This tells Spring: "Please create this object and keep it in your memory box."
-  * **Detail:** This is the most basic building block in Spring Boot. When the app starts, Spring looks for any class with `@Component` and creates one copy of it. `@RestController` and `@Service` are actually just special, specific versions of `@Component`.
+  * **Technical Definition:** A class-level annotation indicating that a Java class is a Spring-managed Bean. The Spring IoC container automatically detects it during component scanning and instantiates it.
   * **Diagram:** `[Spring Memory Box] holds --> [@Component (Object 1)], [@Component (Object 2)]`
 
 * `@Autowired`
   * **Simple Meaning:** This is how we do "Dependency Injection" (plugging things together).
-  * **Detail:** When one class needs help from another class, you don't build a new one from scratch. You use `@Autowired` to tell Spring: "Hey, look in your memory box, find the tool I need, and plug it into my code automatically."
+  * **Technical Definition:** Used to implement Dependency Injection. It tells the Spring IoC container to automatically resolve and inject the required beans into the constructor at runtime.
   * **Diagram:** `[Controller needs a Service] + @Autowired = Spring grabs the [Service] and plugs it in.`
 
 ### Lombok Annotations (The Time Savers)
@@ -142,21 +142,21 @@ Think of our application as a **Large Bank**.
 
 ### Layer 1: The Controller (`/controller`)
 **Analogy:** The Front Desk Teller.
-**Job:** The Controller is the only part of our code that talks to the outside world (the internet). It takes the customer's request (HTTP Request) and returns the final result (HTTP Response). 
+**Technical Definition:** The presentation layer. Exposes RESTful API endpoints, handles HTTP routing, deserializes incoming JSON payloads into Java objects, and returns HTTP status codes.
 **Rules:** 
 * A Front Desk Teller does not approve million-dollar loans! 
 * A Controller should *never* contain complex business logic (like checking if a password is valid). It just takes the request and passes it to the Manager.
 
 ### Layer 2: The Service (`/service`)
 **Analogy:** The Bank Manager / Loan Officer.
-**Job:** This is the brain of the application. All complex business rules live here. 
+**Technical Definition:** The business logic layer. It processes data, applies domain rules, manages database transactions (`@Transactional`), and acts as a bridge between the Controller and the Repository.
 **Rules:** 
 * If a user registers, the Service (Manager) does the hard work: checks if the email is valid, encrypts the password, and checks if the user already exists. 
 * The Service does not talk to the customer directly (that's the Teller's job), and it does not walk into the vault to get money directly. It asks the Vault Guard.
 
 ### Layer 3: The Repository (`/repository`)
 **Analogy:** The Vault Security Guard.
-**Job:** This layer is strictly responsible for talking to the Database (the Vault). 
+**Technical Definition:** The Data Access Layer (DAL). It abstracts away raw SQL queries using Spring Data JPA, providing methods for CRUD (Create, Read, Update, Delete) operations on the database.
 **Rules:** 
 * The Vault Guard doesn't care about business rules; they just put data in or take data out when the Manager asks.
 * Thanks to Spring Data JPA, we usually don't even have to write SQL code here. We just create an Interface, and Spring writes the SQL to open the Vault automatically.
@@ -259,6 +259,5 @@ Think of our Application as an exclusive VIP Nightclub.
 3. **JWT (The VIP Wristband):** If the password is correct, the Bouncer doesn't want to ask for the password ever again. Instead, he hands the user a cryptographically secure "VIP Wristband" (A long string of random text called a JWT).
 4. **Future Requests:** For all future requests (like uploading a document), the user just attaches that JWT Wristband to their request header (`Authorization: Bearer <token>`). The Bouncer looks at the wristband, sees it is valid, and lets them in instantly without needing a password!
 
-**Why is JWT so popular? (Statelessness)**
-In the old days, the server had to memorize exactly who was logged in (this is called storing "Sessions" in memory). But what if you have 10 million users and 50 servers? Memorizing everyone is impossible.
-A JWT is **Stateless**. The server doesn't have to memorize anything! The server just looks at the math signature on the wristband. If the math checks out, the server knows it's a real wristband that *we* generated, so the user is allowed in. This makes scaling infinitely easier.
+**Technical Interview Answer:**
+> "JWT (JSON Web Token) is a stateless, self-contained token used to securely transmit information between parties. In our Spring Boot architecture, we use JWTs for authentication. When a user logs in, we generate a cryptographically signed JWT. Because it is stateless, the server does not need to store session data in memory. For subsequent requests, Spring Security's Filter Chain intercepts the HTTP request, extracts the JWT from the Authorization header, mathematically validates the signature using our secret key, and if valid, populates the `SecurityContext` to authorize the user."
