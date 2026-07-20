@@ -116,27 +116,28 @@ Lombok is a special plugin that saves you from writing boring code.
 
 When you look at a Spring Boot project, there are a lot of folders. In an interview, if you are asked how you structure your code, you must explain the **3-Tier Architecture**. We separate our code into different layers so that our application is easy to maintain, test, and scale.
 
-Think of our application as a **High-End Restaurant**. 
+Think of our application as a **Large Bank**. 
 
 ### Layer 1: The Controller (`/controller`)
-**Analogy:** The Waiter.
-**Job:** The Controller is the only part of our code that talks to the outside world (the internet). It takes the customer's order (HTTP Request) and returns the food (HTTP Response). 
+**Analogy:** The Front Desk Teller.
+**Job:** The Controller is the only part of our code that talks to the outside world (the internet). It takes the customer's request (HTTP Request) and returns the final result (HTTP Response). 
 **Rules:** 
-* A Waiter never cooks food! 
-* A Controller should *never* contain business logic (like checking if a password is valid). It just passes the request to the Service.
+* A Front Desk Teller does not approve million-dollar loans! 
+* A Controller should *never* contain complex business logic (like checking if a password is valid). It just takes the request and passes it to the Manager.
 
 ### Layer 2: The Service (`/service`)
-**Analogy:** The Chef.
+**Analogy:** The Bank Manager / Loan Officer.
 **Job:** This is the brain of the application. All complex business rules live here. 
 **Rules:** 
-* If a user registers, the Service checks if the email is valid, encrypts the password, and checks if the user already exists. 
-* The Service does not take orders directly from the internet, and it does not talk to the database directly. It asks the Repository to fetch data.
+* If a user registers, the Service (Manager) does the hard work: checks if the email is valid, encrypts the password, and checks if the user already exists. 
+* The Service does not talk to the customer directly (that's the Teller's job), and it does not walk into the vault to get money directly. It asks the Vault Guard.
 
 ### Layer 3: The Repository (`/repository`)
-**Analogy:** The Pantry Worker.
-**Job:** This layer is strictly responsible for talking to the database (PostgreSQL). 
+**Analogy:** The Vault Security Guard.
+**Job:** This layer is strictly responsible for talking to the Database (the Vault). 
 **Rules:** 
-* Thanks to Spring Data JPA, we usually don't even have to write SQL code here. We just create an Interface, and Spring writes the SQL in the background.
+* The Vault Guard doesn't care about business rules; they just put data in or take data out when the Manager asks.
+* Thanks to Spring Data JPA, we usually don't even have to write SQL code here. We just create an Interface, and Spring writes the SQL to open the Vault automatically.
 
 ---
 
@@ -177,9 +178,9 @@ If you are asked these questions in an interview *today*, you should be able to 
 
 **Q4 (Phase 4): Can you explain the 3-Tier Architecture you are using?**
 **Answer:** "We use a Controller-Service-Repository pattern. 
-1. The **Controller** handles incoming HTTP requests and returns responses (like a Waiter). It contains no business logic.
-2. The **Service** contains all the complex business rules and validations (like a Chef).
-3. The **Repository** is strictly responsible for database operations using Spring Data JPA (like a Pantry worker)."
+1. The **Controller** handles incoming HTTP requests and returns responses (like a Front Desk Teller). It contains no business logic.
+2. The **Service** contains all the complex business rules and validations (like a Bank Manager).
+3. The **Repository** is strictly responsible for database operations using Spring Data JPA (like a Vault Guard)."
 
 **Q5 (Phase 5): What is the difference between an Entity and a Repository?**
 **Answer:** "An Entity is a plain Java class annotated with `@Entity` that maps exactly to a table in the database (e.g., the `User` class maps to the `USERS` table). A Repository is an interface extending `JpaRepository` that gives us out-of-the-box methods to query, save, and delete those Entities without writing raw SQL."
