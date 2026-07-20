@@ -4,6 +4,7 @@ import com.enterprise.knowledgehub.entity.User;
 import com.enterprise.knowledgehub.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -20,7 +21,10 @@ public class UserService {
 
     /**
      * This is Business Logic. It belongs in the Service layer.
+     * @Transactional ensures "All or Nothing" (Atomicity). 
+     * If any part of this method fails, the database rolls back completely.
      */
+    @Transactional
     public User registerUser(String email, String rawPassword) {
         // 1. Enforce business rules
         if (rawPassword.length() < 8) {

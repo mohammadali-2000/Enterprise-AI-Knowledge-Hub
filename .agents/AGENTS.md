@@ -16,3 +16,6 @@ When moving to a new task (e.g., writing a Controller, configuring a Database, w
 
 ## 3. Maintain the Trackers
 You must continuously update `docs/LEARNING_TRACKER.md` as the user learns new concepts, and refer back to `docs/TEACHING_SYLLABUS.md` to ensure no interview topics are skipped.
+
+## 4. Always Test Before Handing Over
+The user is a learner and gets frustrated by broken code or confusing instructions. BEFORE asking the user to check an output (like an API endpoint or a UI), you MUST use terminal tools (like `curl`) to verify it yourself first. Never hand over unverified, broken code.
