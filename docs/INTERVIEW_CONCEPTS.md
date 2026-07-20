@@ -241,3 +241,24 @@ Swagger UI is a tool that reads that OpenAPI JSON file and automatically generat
 1. **Auto-Generated:** You never have to manually write documentation. Spring Boot (using the `springdoc-openapi` library) looks at your `@RestController` classes and automatically generates the Swagger page on the fly.
 2. **Interactive Testing:** As you saw, you don't need to write complex Terminal/Curl commands or use tools like Postman just to test if your code works. You can test it directly from the browser by clicking "Try it out".
 3. **Contract with Frontend:** It acts as an unbreakable "Contract". The Frontend team can look at Swagger and immediately know exactly how to build their screens without ever having to ask the Backend team questions.
+
+---
+
+## 8. Spring Security & JWT (The VIP Nightclub)
+
+This is the most critical part of an enterprise application. By default, Spring Boot endpoints (like `/api/documents`) are wide open to the public internet. Anyone can access them. We have to lock the doors.
+
+### The Problem
+If a user logs in with their password, how do they stay logged in? We don't want them to have to send their password every single time they click a button or upload a document. That would be incredibly slow and insecure.
+
+### The Solution: JWT (JSON Web Token)
+Think of our Application as an exclusive VIP Nightclub.
+
+1. **Spring Security (The Bouncer):** We configure a "Filter Chain" (like `JwtAuthenticationFilter`). This is a physical Bouncer standing at the front door. He intercepts *every single HTTP request* before it even reaches the Controller (Front Desk).
+2. **Login (Showing ID):** When a user goes to `/api/users/login`, they give the Bouncer their email and password. 
+3. **JWT (The VIP Wristband):** If the password is correct, the Bouncer doesn't want to ask for the password ever again. Instead, he hands the user a cryptographically secure "VIP Wristband" (A long string of random text called a JWT).
+4. **Future Requests:** For all future requests (like uploading a document), the user just attaches that JWT Wristband to their request header (`Authorization: Bearer <token>`). The Bouncer looks at the wristband, sees it is valid, and lets them in instantly without needing a password!
+
+**Why is JWT so popular? (Statelessness)**
+In the old days, the server had to memorize exactly who was logged in (this is called storing "Sessions" in memory). But what if you have 10 million users and 50 servers? Memorizing everyone is impossible.
+A JWT is **Stateless**. The server doesn't have to memorize anything! The server just looks at the math signature on the wristband. If the math checks out, the server knows it's a real wristband that *we* generated, so the user is allowed in. This makes scaling infinitely easier.
