@@ -105,6 +105,28 @@ Here are the annotations we just used in `User.java`:
 * `@Id`: Tells Spring, *"This specific variable (id) is the Primary Key."*
 * `@GeneratedValue(strategy = GenerationType.UUID)`: Tells Spring, *"When I create a new User, DO NOT ask me for an ID. Generate a random, unique UUID string for me automatically."*
 
+### Spring Core Annotations (The Architecture)
+
+* `@RestController`
+  * **Simple Meaning:** This makes a class the "Front Desk Teller" of your application.
+  * **Detail:** It tells Spring Boot that this class will talk directly to the internet. When a user visits a URL (like `/api/users/login`), this class takes their request and returns data back to them. It does not do any complex math or heavy thinking.
+  * **Diagram:** `Internet Request  -->  [@RestController (Teller)]  -->  Passes work to the Service`
+
+* `@Service`
+  * **Simple Meaning:** This makes a class the "Manager" or "Chef". 
+  * **Detail:** This is where the actual brain of your application lives. It contains all the "Business Logic". For example, if you need to check passwords, validate emails, or calculate taxes, you write that code here. The Service does the hard work.
+  * **Diagram:** `[@RestController (Teller)]  -->  [@Service (Manager does the math)]  -->  Saves to Database`
+
+* `@Component`
+  * **Simple Meaning:** This tells Spring: "Please create this object and keep it in your memory box."
+  * **Detail:** This is the most basic building block in Spring Boot. When the app starts, Spring looks for any class with `@Component` and creates one copy of it. `@RestController` and `@Service` are actually just special, specific versions of `@Component`.
+  * **Diagram:** `[Spring Memory Box] holds --> [@Component (Object 1)], [@Component (Object 2)]`
+
+* `@Autowired`
+  * **Simple Meaning:** This is how we do "Dependency Injection" (plugging things together).
+  * **Detail:** When one class needs help from another class, you don't build a new one from scratch. You use `@Autowired` to tell Spring: "Hey, look in your memory box, find the tool I need, and plug it into my code automatically."
+  * **Diagram:** `[Controller needs a Service] + @Autowired = Spring grabs the [Service] and plugs it in.`
+
 ### Lombok Annotations (The Time Savers)
 Lombok is a special plugin that saves you from writing boring code.
 * `@Data`: If you write this, you **never have to write Getters and Setters again**. Lombok secretly writes `getEmail()` and `setEmail()` for every single variable in the background.
