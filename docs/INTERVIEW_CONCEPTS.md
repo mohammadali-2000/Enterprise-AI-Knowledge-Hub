@@ -318,3 +318,42 @@ If you ever actually *need* a brand new copy of an object for every single reque
 
 **Technical Interview Answer:**
 > "By default, all Spring Beans are Singletons, meaning the IoC container creates exactly one instance per application context. This is highly performant and memory-efficient. However, because the instance is shared across multiple concurrent threads, it must be stateless (thread-safe). If we need stateful beans where a new instance is created every time it is requested, we change the scope to Prototype."
+
+---
+
+## 11. Enterprise Architecture Patterns (MVC, Clean Architecture, Hexagonal)
+
+In enterprise software engineering, applications are structured using industry-standard **Architectural Patterns** to ensure maintainability, scalability, and testability. Here are the primary patterns you will encounter in real-world companies and interviews:
+
+### 1. Layered / 3-Tier Architecture (What We Are Using)
+* **Structure:** `Presentation Layer (Controller)` $\rightarrow$ `Business Layer (Service)` $\rightarrow$ `Data Access Layer (Repository)` $\rightarrow$ `Database`.
+* **How it works:** Data flows strictly downward. Each layer only talks to the layer directly below it.
+* **Best for:** Standard Spring Boot REST APIs, SaaS platforms, and core enterprise backend applications.
+* **Pros:** Extremely simple to learn, clean separation of concerns, fast development velocity.
+
+### 2. MVC (Model-View-Controller)
+* **Structure:** `Model` (Data/Entities), `View` (UI/JSON), `Controller` (Request Handler).
+* **Historical Context:** Originally designed for desktop UIs and server-rendered web pages (like Spring MVC + Thymeleaf, Ruby on Rails, Django).
+* **Modern REST Context:** In modern API backend development, the **View** is decoupled into standalone Frontend applications (React/Angular), while the Spring Boot backend acts as a **Stateless RESTful Controller** returning JSON Models over HTTP.
+
+### 3. Clean Architecture / Onion Architecture (Robert C. Martin / "Uncle Bob")
+* **Structure:** Concentric circles where **Core Business Logic (Entities & Domain Use Cases)** sits at the absolute center, surrounded by Application Services, and external infrastructure (Database, Spring Framework, AWS) sits on the outermost ring.
+* **The Golden Dependency Rule:** Source code dependencies can **ONLY point inward**. Core business logic knows NOTHING about Spring Boot, PostgreSQL, or HTTP.
+* **Why Enterprise Uses It:** Framework Independence. If you want to switch your database from PostgreSQL to MongoDB or your framework from Spring Boot to Quarkus, you only rewrite the outer layer. The core business rules in the center remain untouched.
+
+### 4. Hexagonal Architecture (Ports & Adapters)
+* **Structure:** The Core Domain is inside a hexagon. The application talks to the outside world using **Ports** (Java Interfaces) and **Adapters** (Concrete implementations like `PostgresAdapter`, `S3StorageAdapter`, `KafkaAdapter`).
+* **Why Enterprise Uses It:** Pluggability. To change cloud providers (e.g., AWS S3 to Google Cloud Storage), you simply write a new Adapter that implements the same `FileStoragePort` interface.
+
+### 5. Event-Driven Architecture (EDA)
+* **Structure:** Services communicate asynchronously by emitting and listening to **Events** via Message Brokers (Apache Kafka, RabbitMQ).
+* **Example in Our App:** When a user uploads a PDF, `DocumentController` publishes a `DocumentUploadedEvent`. An AI Background Worker listens to Kafka, picks up the event, extracts text, and generates vectors without blocking the user's HTTP thread!
+
+### 🎯 Summary Matrix for Interviews
+
+| Architectural Pattern | Primary Focus | Best Use Case |
+| :--- | :--- | :--- |
+| **Layered (3-Tier)** | Simple top-down separation of concerns | Standard CRUD REST APIs & microservices |
+| **MVC** | Separating UI state from business logic | Server-rendered apps & Web UI integration |
+| **Clean / Hexagonal** | Complete decoupling of domain rules from infrastructure/frameworks | Complex core enterprise engines & long-term projects |
+| **Event-Driven (EDA)** | Asynchronous, decoupled communication via message buses | High-scale microservices, background pipelines (AI/Data) |
